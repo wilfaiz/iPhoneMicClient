@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="iPhoneMicClient.MainPage">
+
+    <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+
+        <Label Text="Ubah iPhone Jadi Mic" 
+               FontSize="24" 
+               HorizontalOptions="Center" 
+               FontAttributes="Bold"/>
+
+        <Entry x:Name="IpEntry" 
+               Placeholder="IP PC (contoh: 192.168.1.10)" 
+               HorizontalTextAlignment="Center" 
+               Keyboard="Numeric"/>
+
+        <Button x:Name="BtnStream" 
+                Text="Mulai Stream" 
+                Clicked="OnStreamClicked" 
+                BackgroundColor="Green" 
+                TextColor="White"
+                HeightRequest="60"
+                CornerRadius="10"
+                FontAttributes="Bold"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
