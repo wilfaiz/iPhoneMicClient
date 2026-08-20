@@ -1,0 +1,37 @@
+name: Build iOS MAUI App
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  build:
+    # Kita minta GitHub menggunakan OS Mac versi paling baru
+    runs-on: macos-latest 
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Install MAUI Workload
+      run: dotnet workload install maui
+
+    - name: Build Unsigned App
+      run: |
+        dotnet publish -f net10.0-ios -c Release -p:RuntimeIdentifier=ios-arm64 -p:CodesignKey="" -p:CodesignProvision=""
+        
+    - name: Package to IPA
+      run: |
+        mkdir -p Payload
+        cp -r iPhoneMicClient/bin/Release/net10.0-ios/ios-arm64/iPhoneMicClient.app Payload/
+        zip -r iPhoneMicClient.ipa Payload
+
+    - name: Upload IPA Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mic-App-iPhone15
+        path: iPhoneMicClient.ipa
